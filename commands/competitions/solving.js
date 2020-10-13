@@ -11,9 +11,10 @@ module.exports = class Solving extends Command {
             description: 'Adds you a tag for competitions solving. If you are already solving removes it.',
             args: [
                 {
-                    key: 'competition',
+                    key: 'userCompetitions',
                     prompt: 'What competiton would you like to start solving',
                     type: 'string',
+                    parse: arg => arg.split(" ")
                 }
             ],
             userPermissions: [
@@ -25,13 +26,27 @@ module.exports = class Solving extends Command {
 		});
     }
 
-    run (message, {competition}) {
+    run (message, {userCompetitions}) {
         const competitions = JSON.parse(fs.readFileSync('./commands/competitions/competitions_data.json', 'utf-8'));
-        var register = competitions.find(comp => comp.name === competition);
-        if (message.member._roles.includes(register.role)) {
-            message.member.roles.remove(register.role)
+        var messageText = `<@${message.author.id}>`;
+        let register = userCompetitions.map(finding => competitions.find(comp => comp.name === finding));
+        if (register.includes(undefined)) {
+            messageText += ` Unknown competitions: ${userCompetitions.filter(
+                comp => register[comp.indexOf(userCompetitions)] === undefined
+            ).join(", ")
+            }.`;
         } else {
-            message.member.roles.add(register.role)
+            messageText += '\n';
+            for (let i=0; i < userCompetitions.length; i++) {
+                if (message.member._roles.includes(register[i].role)) {
+                    messageText += `You are no longer ${userCompetitions[i]} solver.\n`;
+                    message.member.roles.remove(register[i].role);
+                } else {
+                    messageText += `You are now ${userCompetitions[i]} solver.\n`;
+                    message.member.roles.add(register[i].role);
+                }
+            }
         }
+        message.say(messageText);
     }
 };
