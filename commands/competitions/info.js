@@ -29,7 +29,7 @@ module.exports = class Info extends Command {
         if (competition === undefined) {
             messageText += 'Unknown competition.';
         } else {
-            messageText += `Here's web for ${competition.category.toLowerCase()} ${competition.name}: ${competition.web}`;
+            messageText += `Here's web for ${competition.category.toLowerCase()} competiton ${competition.name} ${competition.web}. ${competition.deadline != undefined ? ` Next deadline is ${competition.deadline}`: ''}`;
         }
         message.say(messageText);
     }

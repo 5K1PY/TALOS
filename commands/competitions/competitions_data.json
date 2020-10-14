@@ -1,6 +1,1 @@
-[
-    {"name":"KSP", "role":"765492174669742100", "category": "Programming", "web": "https://ksp.mff.cuni.cz/"},
-    {"name":"KSP-Z", "role":"765492201823141888", "category": "Programming", "web": "https://ksp.mff.cuni.cz/z/"},
-    {"name":"KSI", "role":"765492250368016406", "category": "Programming", "web": "https://ksi.fi.muni.cz/"},
-    {"name":"fykos", "role":"765492060295135242", "category": "Physics", "web": "https://fykos.cz/"}
-]
+[{"name":"KSP","role":"765492174669742100","category":"Programming","web":"https://ksp.mff.cuni.cz/","deadline":"1. 11. 2020"},{"name":"KSP-Z","role":"765492201823141888","category":"Programming","web":"https://ksp.mff.cuni.cz/z/","deadline":"25. 10. 2020"},{"name":"KSI","role":"765492250368016406","category":"Programming","web":"https://ksi.fi.muni.cz/","deadline":"31. 10. 2020"},{"name":"fykos","role":"765492060295135242","category":"Physics","web":"https://fykos.cz/"}]
