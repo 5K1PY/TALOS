@@ -23,7 +23,7 @@ module.exports = class Info extends Command {
     }
 
     run (message, {competitionName}) {
-        const competitions = JSON.parse(fs.readFileSync('./commands/competitions/competitions_data.json', 'utf-8'));
+        const competitions = JSON.parse(fs.readFileSync('./data/competitions/competitions_data.json', 'utf-8'));
         let competition = competitions.find(comp => comp.name === competitionName);
         let messageText = `<@${message.author.id}> `;
         if (competition === undefined) {

@@ -27,7 +27,7 @@ module.exports = class Solving extends Command {
     }
 
     run (message, {userCompetitions}) {
-        const competitions = JSON.parse(fs.readFileSync('./commands/competitions/competitions_data.json', 'utf-8'));
+        const competitions = JSON.parse(fs.readFileSync('./data/competitions/competitions_data.json', 'utf-8'));
         var messageText = `<@${message.author.id}>`;
         let register = userCompetitions.map(finding => competitions.find(comp => comp.name === finding));
         if (register.includes(undefined)) {

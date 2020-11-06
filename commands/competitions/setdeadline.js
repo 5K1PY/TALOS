@@ -30,10 +30,10 @@ module.exports = class Info extends Command {
     }
 
     run (message, {competitionName, deadline}) {
-        const competitions = JSON.parse(fs.readFileSync('./commands/competitions/competitions_data.json', 'utf-8'));
+        const competitions = JSON.parse(fs.readFileSync('./data/competitions/competitions_data.json', 'utf-8'));
         competitions.find(comp => comp.name === competitionName).deadline = deadline;
         let jsonData = JSON.stringify(competitions);
-        fs.writeFileSync('./commands/competitions/competitions_data.json', jsonData, 'utf-8')
+        fs.writeFileSync('./data/competitions/competitions_data.json', jsonData, 'utf-8')
         message.say(`<@${message.author.id}> Deadline set.`)
     }
 };
