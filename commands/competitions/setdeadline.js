@@ -8,7 +8,7 @@ module.exports = class Info extends Command {
 			aliases: [],
 			group: 'competitions',
 			memberName: 'setdeadline',
-            description: 'Sends info for competition',
+            description: 'Sets deadline for new competition',
             args: [
                 {
                     key: 'competitionName',
@@ -23,13 +23,10 @@ module.exports = class Info extends Command {
                 },
             ],
             userPermissions: [
-                'SEND_MESSAGES'
+                'SEND_MESSAGES',
+                'MANAGE_ROLES'
             ],
 		});
-    }
-
-    hasPermission (message) {
-        return message.member._roles.includes('765941113340821554') // Moderator
     }
 
     run (message, {competitionName, deadline}) {
