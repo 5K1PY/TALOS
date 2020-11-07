@@ -43,6 +43,7 @@ module.exports = class Info extends Command {
             data: {
                 name: competitionName,
                 color: colour,
+                mentionable: true,
             }
         });
         let competitions = JSON.parse(fs.readFileSync('./data/competitions/competitions_data.json', 'utf-8'));
