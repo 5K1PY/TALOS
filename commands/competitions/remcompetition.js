@@ -24,7 +24,7 @@ module.exports = class Info extends Command {
     }
 
     run (message, {competitionName}) {
-        let competitions = JSON.parse(fs.readFileSync('./data/competitions/competitions_data.json', 'utf-8'));
+        let competitions = JSON.parse(fs.readFileSync(`./data/${message.guild.id}/competitions/competitions_data.json`, 'utf-8'));
         
         let competition = competitions.find(comp => comp.name === competitionName);
         if (competition === undefined) { 
@@ -34,7 +34,7 @@ module.exports = class Info extends Command {
             message.guild.roles.cache.find(comp => comp.name === competitionName).delete();
 
             let jsonData = JSON.stringify(competitions);
-            fs.writeFileSync('./data/competitions/competitions_data.json', jsonData, 'utf-8');
+            fs.writeFileSync(`./data/${message.guild.id}/competitions/competitions_data.json`, jsonData, 'utf-8');
             message.say(`<@${message.author.id}> Competition removed.`);
         }
     }

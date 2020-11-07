@@ -46,7 +46,7 @@ module.exports = class Info extends Command {
                 mentionable: true,
             }
         });
-        let competitions = JSON.parse(fs.readFileSync('./data/competitions/competitions_data.json', 'utf-8'));
+        let competitions = JSON.parse(fs.readFileSync(`./data/${message.guild.id}/competitions/competitions_data.json`, 'utf-8'));
         competitions.push({
             "name": competitionName,
             "role": role.id,
@@ -54,7 +54,7 @@ module.exports = class Info extends Command {
             "web": web
         });
         let jsonData = JSON.stringify(competitions);
-        fs.writeFileSync('./data/competitions/competitions_data.json', jsonData, 'utf-8')
+        fs.writeFileSync(`./data/${message.guild.id}/competitions/competitions_data.json`, jsonData, 'utf-8')
         message.say(`<@${message.author.id}> Competition created.`);
     }
 };
