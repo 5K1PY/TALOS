@@ -1,5 +1,6 @@
 require('dotenv').config()
 const Discord = require('discord.js');
+const {startTasks} = require('./annual/annual.js');
 const { CommandoClient } = require('discord.js-commando');
 const path = require('path');
 
@@ -24,6 +25,7 @@ client.registry
 client.once('ready', () => {
 	console.log(`Logged in as ${client.user.tag}! (${client.user.id})`);
 	client.user.setActivity(`${client.commandPrefix}help for help`);
+	startTasks(client);
 });
 	
 client.on('error', console.error);
