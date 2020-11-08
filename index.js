@@ -3,12 +3,20 @@ const Discord = require('discord.js');
 const {startTasks} = require('./annual/annual.js');
 const { CommandoClient } = require('discord.js-commando');
 const path = require('path');
+const fs = require('fs');
 
 const client = new CommandoClient({
 	commandPrefix: '!',
 	owner: '616292913877614638',
 	disableEveryone: true,
 });
+
+// ignoring messages from certain channels
+client.dispatcher.addInhibitor(msg => {
+	if ((JSON.parse(fs.readFileSync(`./data/${msg.guild.id}/channels.json`, 'utf-8')).ignore.includes(msg.channel.id))) {
+		return 'ignored';
+	}
+})
 
 client.registry
 	.registerDefaultTypes()
