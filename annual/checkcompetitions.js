@@ -7,7 +7,7 @@ const fs = require('fs');
 
 function checkCompetitions({client}) {
     for (let [id, guild] of client.guilds.cache.entries()) {
-        let channel = guild.channels.cache.get(JSON.parse(fs.readFileSync(`./data/${guild.id}/announcments_channel.json`, 'utf-8')).id);
+        let channel = guild.channels.cache.get(JSON.parse(fs.readFileSync(`./data/${guild.id}/channels.json`, 'utf-8')).competitions_announce);
         let competitions = JSON.parse(fs.readFileSync(`./data/${guild.id}/competitions/competitions_data.json`, 'utf-8'));
         for (let i=0; i < competitions.length; i++) {
             let comp = competitions[i]

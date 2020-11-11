@@ -3,7 +3,7 @@ module.exports = {
 }
 
 
-const {checkCompetitions} = require('./checkcompetitions.js')
+const {checkCompetitions} = require('./checkcompetitions.js');
 
 class TaskHandler {
     constructor() {
@@ -51,12 +51,19 @@ class Task {
 
 function startTasks(client) {
     let handler = new TaskHandler();
-    const d = new Date();
-    const delay = ((d.getHours() < 8 ? 8 : 32) - d.getHours())*3600000;
+    
+    const now = new Date();
+    const then = new Date();
+    then.setHours(8, 0, 0, 0);
+    if (now.getTime() > then.getTime()) {
+        then.setDate(then.getDate() + 1);
+    }
+
+    const delay = then.getTime() - now.getTime();
     const day = 86400000; // millis in day
     [
         new Task(checkCompetitions, delay, day, {'client': client})
     ].forEach(task => {
-        handler.add(task)
+        handler.add(task);
     });
 }
