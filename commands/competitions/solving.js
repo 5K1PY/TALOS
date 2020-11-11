@@ -31,12 +31,14 @@ module.exports = class Solving extends Command {
         var messageText = `<@${message.author.id}>`;
         let register = userCompetitions.map(finding => competitions.find(comp => comp.name === finding));
         if (register.includes(undefined)) {
-            messageText += ` Unknown competitions: ${userCompetitions.filter(
-                comp => register[comp.indexOf(userCompetitions)] === undefined
-            ).join(", ")
-            }.`;
+            messageText += "Unknown competitions:"
+            for (var i=0; i<userCompetitions.length; i++) {
+                if (register[i] === undefined) {
+                    messageText += ` ${userCompetitions[i]}` + (i===userCompetitions.length-1 ? '':',')
+                }
+            }
         } else {
-            messageText += '\n';
+            messageText += register.length === 1 ? ' ' : '\n';
             for (let i=0; i < userCompetitions.length; i++) {
                 if (message.member._roles.includes(register[i].role)) {
                     messageText += `You are no longer ${userCompetitions[i]} solver.\n`;
