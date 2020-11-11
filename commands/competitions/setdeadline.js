@@ -31,7 +31,7 @@ module.exports = class Info extends Command {
 
     run (message, {competitionName, deadline}) {
         const competitions = JSON.parse(fs.readFileSync(`./data/${message.guild.id}/competitions/competitions_data.json`, 'utf-8'));
-        competitions.find(comp => comp.name === competitionName).deadline = deadline;
+        competitions.find(comp => comp.name.toLowerCase() === competitionName.toLowerCase()).deadline = deadline;
         let jsonData = JSON.stringify(competitions);
         fs.writeFileSync(`./data/${message.guild.id}/competitions/competitions_data.json`, jsonData, 'utf-8')
         message.say(`<@${message.author.id}> Deadline set.`)

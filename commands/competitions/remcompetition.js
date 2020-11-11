@@ -26,12 +26,12 @@ module.exports = class Info extends Command {
     run (message, {competitionName}) {
         let competitions = JSON.parse(fs.readFileSync(`./data/${message.guild.id}/competitions/competitions_data.json`, 'utf-8'));
         
-        let competition = competitions.find(comp => comp.name === competitionName);
-        if (competition === undefined) { 
+        let competition = competitions.find(comp => comp.name.toLowerCase() === competitionName.toLowerCase());
+        if (competition === undefined) {
             message.say(`<@${message.author.id}> Unknown competition.`);
         } else {
-            competitions = competitions.filter(comp => comp.name != competitionName);
-            message.guild.roles.cache.find(comp => comp.name === competitionName).delete();
+            competitions = competitions.filter(comp => comp.name.toLowerCase() != competitionName.toLowerCase());
+            message.guild.roles.cache.find(comp => comp.name.toLowerCase() === competitionName.toLowerCase()).delete();
 
             let jsonData = JSON.stringify(competitions);
             fs.writeFileSync(`./data/${message.guild.id}/competitions/competitions_data.json`, jsonData, 'utf-8');

@@ -14,6 +14,7 @@ module.exports = class Info extends Command {
                     key: 'competitionName',
                     prompt: 'What is the name for new competiton?',
                     type: 'string',
+                    validate: name => (name[0] != '-'),
                 },
                 {
                     key: 'category',
@@ -39,22 +40,27 @@ module.exports = class Info extends Command {
     }
 
     async run (message, {competitionName, category, colour, web}) {
-        let role = await message.guild.roles.create({
-            data: {
-                name: competitionName,
-                color: colour,
-                mentionable: true,
-            }
-        });
         let competitions = JSON.parse(fs.readFileSync(`./data/${message.guild.id}/competitions/competitions_data.json`, 'utf-8'));
-        competitions.push({
-            "name": competitionName,
-            "role": role.id,
-            "category": category,
-            "web": web
-        });
-        let jsonData = JSON.stringify(competitions);
-        fs.writeFileSync(`./data/${message.guild.id}/competitions/competitions_data.json`, jsonData, 'utf-8')
-        message.say(`<@${message.author.id}> Competition created.`);
+        let competition = competitions.find(comp => comp.name.toLowerCase() === competitionName.toLowerCase());
+        if (competition != undefined) {
+            message.say(`<@${message.author.id}> Competition with same name already created.`);
+        } else {
+            let role = await message.guild.roles.create({
+                data: {
+                    name: competitionName,
+                    color: colour.toUpperCase(),
+                    mentionable: true,
+                }
+            });
+            competitions.push({
+                "name": competitionName,
+                "role": role.id,
+                "category": category,
+                "web": web
+            });
+            let jsonData = JSON.stringify(competitions);
+            fs.writeFileSync(`./data/${message.guild.id}/competitions/competitions_data.json`, jsonData, 'utf-8')
+            message.say(`<@${message.author.id}> Competition created.`);
+        }
     }
 };

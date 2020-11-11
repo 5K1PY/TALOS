@@ -29,7 +29,7 @@ module.exports = class Solving extends Command {
     run (message, {userCompetitions}) {
         const competitions = JSON.parse(fs.readFileSync(`./data/${message.guild.id}/competitions/competitions_data.json`, 'utf-8'));
         var messageText = `<@${message.author.id}>`;
-        let register = userCompetitions.map(finding => competitions.find(comp => comp.name === finding));
+        let register = userCompetitions.map(finding => competitions.find(comp => comp.name.toLowerCase() === finding.toLowerCase()));
         if (register.includes(undefined)) {
             messageText += "Unknown competitions:"
             for (var i=0; i<userCompetitions.length; i++) {
