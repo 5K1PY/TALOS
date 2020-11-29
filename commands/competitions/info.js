@@ -29,6 +29,8 @@ module.exports = class Info extends Command {
         let register;
         if (competitionNames.length === 1 && (competitionNames[0].toLowerCase() === "--all" || competitionNames[0].toLowerCase() === "-a")) {
             register = competitions;
+        } else if (competitionNames.length === 1 && (competitionNames[0].toLowerCase() === "--mine" || competitionNames[0].toLowerCase() === "-m")) {
+            register = competitions.filter(comp => message.member._roles.includes(comp.role))
         } else {
             register = competitionNames.map(finding => competitions.find(comp => comp.name.toLowerCase() === finding.toLowerCase()));
         }
